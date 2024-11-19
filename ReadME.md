@@ -49,3 +49,74 @@ Follow these steps to set up and run the project.
     ```bash
     python linear_regression_model.py
     ```
+2. Deploy FastAPI
+    The FastAPI application (`api.py`) loads the saved model and provides an endpoint for predictions. Run it using `uvicorn`:
+    ```bash
+    uvicorn api:app --reload
+    ```
+    This will start the FastAPI server at `http://127.0.0.1:8000`
+
+3. Run Streamlit 
+   The Streamlit app allows users to input values and retrieve predictions from the FastAPI server. To start Streamlit, run:
+   ```bash
+   streamlit run app.py
+   ```
+   
+## Usage
+
+FastAPI Endpoints
+- POST /predict
+  - Description: Accepts environmental parameters and returns a predicted power output (PE).
+  - Input JSON:
+  ```bash
+  {
+      "ambient_temperature": 45,
+      "exhaust_vacuum": 23,
+      "ambient_pressure": 45,
+      "relative_humidity": 90
+  }
+  ```
+  - Output JSON:
+  ```bash
+  {
+    "prediction": 465.84
+  }
+  ```
+  
+### Streamlit Application
+
+The Streamlit app provides an interface for users to input values for AT, V, AP, and RH. When the Predict button is clicked, the app sends the values to the FastAPI endpoint and displays the predicted power output (PE).
+
+## Example Input and Output
+Example Input:
+AT = 15, V = 40, AP = 1000, RH = 75
+
+Example Output:
+Predicted Power Output (PE) = 465.84
+
+
+## File Structure
+The project directory is structured as follows:
+
+```
+📦 linear_regression_app
+├─ data
+│  └─ data.xlsx
+├─ model
+│  └─ model.pkl
+├─ src
+├─ .gitignore
+├─ app.py
+├─ api.py
+├─ linear_regression_model.py
+├─ README.md
+└─ requirements.txt
+```
+
+## Power Output Visualizations
+
+### Actual vs Predicted Values
+![Training and Validation Loss](src/figure_1.png)
+
+## License
+This project is licensed under [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
